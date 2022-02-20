@@ -17,6 +17,7 @@ import SortIcon from '@material-ui/icons/Sort';
 const userStationCode = User.station_code;
 const nearestRideCount = Ride.length;
 
+//STYLES FOR SELECT INPUT
 const useStyles = makeStyles({
   select: {
     background: '#232323',
@@ -39,6 +40,7 @@ const useStyles = makeStyles({
   },
 });
 
+// STATES AND CITY LIST
 const statesAndCityList = {
   Delhi: {
     City: ['New Delhi', 'Rohini'],
@@ -67,15 +69,19 @@ function RidesPage() {
   const [selectFilterMenu, setSelectFilterMenu] = useState(false);
   const [anchorEl, setAnchorEl] = useState();
 
+  // FUNCTION TO OPEN THE FILTER MENU
   function openSelectFilterMenu(event) {
     setAnchorEl(event.currentTarget);
     setSelectFilterMenu(true);
   }
 
+  // FUNCTION TO CLOSE THE FILTER MENU
   function closeSelectFilterMenu() {
     setSelectFilterMenu(false);
   }
 
+  // FUNCTION TO GET THE RIDE COUNTS FOR ALL
+  // RIDE TYPES i.e NEAREST, UPCOMING AND PAST
   function getRidesCount() {
     let todaysDate = new Date().getTime();
     let upcomingArr = Ride.filter(item => {
@@ -91,19 +97,27 @@ function RidesPage() {
   useEffect(() => {
     getRidesCount();
     let arr = [];
+    // CALCULATING THE DISTANCE FROM USER_STATION_CODE
+    // AND FROM STATION_PATH_CODE
     Ride.forEach((rd, index) => {
+      // RETURNING ABSOLUTE VALUES OF STATION_PATH MINUS THE USER_STATION_CODE
       let subtractArr = rd.station_path.map(function (item) {
         return Math.abs(item - userStationCode);
       });
+      // FINDING THE MINIMUM FROM THE SUBTRACTED VALUE ARRAY
+      // AND PUSHING THE VALUES IN A TEMP ARRAY WITH RIDE DETAILS AND DISTANCE KEY
       let distance = Math.min(...subtractArr);
       arr.push({ ...rd, distance: distance });
     });
+    // SORTING THE RIDE LIST IN ASCENDING ORDER OF DISTANCE
     arr.sort(function (a, b) {
       var x = Number(a['distance']);
       var y = Number(b['distance']);
       return x > y ? 1 : x < y ? -1 : 0;
     });
+    // TODAYS DATE FOR REFERENCE OF PAST AND UPCOMING RIDES
     let todaysDate = new Date().getTime();
+    // FILTERING BASED ON STATE/CITY AND ON THE ACTIVE TAB/CURRENTLY SELECTED TAB
     if (activeTab === 'Nearest') {
       if (filterCity.length > 0) {
         let nearestArr = arr.filter(item => {
@@ -119,6 +133,7 @@ function RidesPage() {
         setRideData([...arr]);
       }
     }
+    // FILTER FOR DATES AFTER TODAYS DATE AND ON STATE/CITY
     if (activeTab === 'Upcoming') {
       if (filterCity.length > 0) {
         let upcomingArr = arr.filter(item => {
@@ -141,6 +156,7 @@ function RidesPage() {
         setRideData([...upcomingArr]);
       }
     }
+    // FILTER FOR DATES BEFORE TODAYS DATE AND ON STATE/CITY
     if (activeTab === 'Past') {
       if (filterCity.length > 0) {
         let pastArr = arr.filter(item => {
