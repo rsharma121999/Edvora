@@ -171,7 +171,7 @@ function RidesPage() {
     if (activeTab === 'Past') {
       getUpcomingPastRides(arr, 'Past');
     }
-  }, [activeTab, filterCity, filterState]);
+  }, [activeTab, filterCity, filterState,getUpcomingPastRides]);
 
   const classes = useStyles();
 
