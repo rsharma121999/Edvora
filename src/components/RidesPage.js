@@ -49,8 +49,12 @@ const statesAndCityList = {
   Maharashtra: {
     City: ['Panvel'],
   },
-  Rajasthan: { City: ['Kota', 'Jaipur'] },
-  Gujarat: { City: ['Ahmedabad'] },
+  Rajasthan: {
+    City: ['Kota', 'Jaipur'],
+  },
+  Gujarat: {
+    City: ['Ahmedabad'],
+  },
 };
 
 function RidesPage() {
@@ -84,9 +88,23 @@ function RidesPage() {
     setPastRideCount(pastArr.length);
   }
 
-  function getUpcomingPastRides(arr, value) {
+  useEffect(() => {
+    getRidesCount();
+    let arr = [];
+    Ride.forEach((rd, index) => {
+      let subtractArr = rd.station_path.map(function (item) {
+        return Math.abs(item - userStationCode);
+      });
+      let distance = Math.min(...subtractArr);
+      arr.push({ ...rd, distance: distance });
+    });
+    arr.sort(function (a, b) {
+      var x = Number(a['distance']);
+      var y = Number(b['distance']);
+      return x > y ? 1 : x < y ? -1 : 0;
+    });
     let todaysDate = new Date().getTime();
-    if (value === 'Nearest') {
+    if (activeTab === 'Nearest') {
       if (filterCity.length > 0) {
         let nearestArr = arr.filter(item => {
           return item.city === filterCity;
@@ -101,7 +119,7 @@ function RidesPage() {
         setRideData([...arr]);
       }
     }
-    if (value === 'Upcoming') {
+    if (activeTab === 'Upcoming') {
       if (filterCity.length > 0) {
         let upcomingArr = arr.filter(item => {
           return (
@@ -123,7 +141,7 @@ function RidesPage() {
         setRideData([...upcomingArr]);
       }
     }
-    if (value === 'Past') {
+    if (activeTab === 'Past') {
       if (filterCity.length > 0) {
         let pastArr = arr.filter(item => {
           return (
@@ -145,33 +163,7 @@ function RidesPage() {
         setRideData([...pastArr]);
       }
     }
-  }
-
-  useEffect(() => {
-    getRidesCount();
-    let arr = [];
-    Ride.forEach((rd, index) => {
-      let subtractArr = rd.station_path.map(function (item) {
-        return Math.abs(item - userStationCode);
-      });
-      let distance = Math.min(...subtractArr);
-      arr.push({ ...rd, distance: distance });
-    });
-    arr.sort(function (a, b) {
-      var x = Number(a['distance']);
-      var y = Number(b['distance']);
-      return x > y ? 1 : x < y ? -1 : 0;
-    });
-    if (activeTab === 'Nearest') {
-      getUpcomingPastRides(arr, 'Nearest');
-    }
-    if (activeTab === 'Upcoming') {
-      getUpcomingPastRides(arr, 'Upcoming');
-    }
-    if (activeTab === 'Past') {
-      getUpcomingPastRides(arr, 'Past');
-    }
-  }, [activeTab, filterCity, filterState,getUpcomingPastRides]);
+  }, [activeTab, filterCity, filterState]);
 
   const classes = useStyles();
 
