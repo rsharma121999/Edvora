@@ -1,0 +1,45 @@
+.Navbar {
+  background: #101010;
+  max-width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  padding: 6px 36px;
+}
+
+.Logo {
+  font-weight: 600;
+  font-size: 36px;
+  color: white;
+}
+
+.user {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.user img {
+  margin-left: 20px;
+  border-radius: 50%;
+}
+
+.Name {
+  color: white;
+  font-size: 24px;
+}
+
+@media only screen and (max-width: 425px) {
+  .Logo {
+    font-weight: 600;
+    font-size: 24px;
+    color: white;
+  }
+  .Name {
+    color: white;
+    font-size: 18px;
+  }
+  .user img {
+    margin-left: 10px;
+  }
+}

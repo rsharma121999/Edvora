@@ -1,0 +1,65 @@
+body {
+  user-select: none;
+}
+
+ul {
+  padding: 0 !important;
+  padding-right: 0 !important;
+}
+
+.container {
+  background: #292929;
+  min-height: calc(100vh - 92px);
+  max-width: 100%;
+  padding: 0 24px;
+}
+
+.rides-types {
+  display: flex;
+  align-items: center;
+  color: #d0cbcb;
+  flex-wrap: wrap;
+  padding: 0px 20px;
+}
+
+.rides-types p {
+  cursor: pointer;
+  font-weight: 600;
+  margin: 2em 1em;
+}
+
+.active {
+  color: white;
+  padding-bottom: 4px;
+  border-bottom: 2px solid white;
+}
+
+.filter {
+  margin-left: auto;
+}
+
+.filter-popup {
+  padding: 0;
+}
+
+.filter-menu {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  padding: 18px;
+  background: #131313;
+}
+
+.filter-menu p {
+  font-size: 24px;
+  padding-bottom: 5px;
+  color: #d0cbcb;
+  border-bottom: 2px solid #d0cbcb;
+}
+
+.filter-menu select {
+  margin: 20px 5px;
+}
+.cards {
+  padding: 0 24px;
+}

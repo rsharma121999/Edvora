@@ -1,0 +1,48 @@
+.wrapper {
+  display: flex;
+  background: #171717;
+  padding: 12px 24px;
+  border-radius: 10px;
+}
+
+.map-img {
+  height: 200px;
+  width: 350px;
+}
+
+.details {
+  margin-left: 30px;
+  color: white;
+}
+.city-details {
+  display: flex;
+  margin-left: auto;
+}
+
+.city-text {
+  display: flex;
+  align-items: center;
+  margin: 0 6px;
+  padding: 12px;
+  background: #000;
+  font-size: 16px;
+  color: white;
+  height: 30px;
+  border: none;
+  outline: none;
+  border-radius: 15px;
+}
+
+@media only screen and (max-width: 900px) {
+  .wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .map-img {
+    height: 200px;
+    width: 250px;
+  }
+  .city-details {
+    margin: 0;
+  }
+}
